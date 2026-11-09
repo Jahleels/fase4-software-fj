@@ -30,3 +30,21 @@ errores.
 Cada integrante debe trabajar en su propia rama, realizar commits claros y
 abrir un pull request para integrar sus cambios a `main`.
 
+## Estructura inicial
+
+```text
+fase4-software-fj/
+├── main.py
+├── exceptions/
+├── models/
+├── utils/
+├── tests/
+└── logs/
+```
+
+Para comprobar la estructura inicial:
+
+```powershell
+python main.py
+```
+
