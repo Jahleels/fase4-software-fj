@@ -5,6 +5,7 @@ from .asesoria_especializada import AsesoriaEspecializada
 from .cliente import Cliente
 from .reserva import Reserva
 from .reserva_sala import ReservaSala
+from .sistema import SistemaReservas
 
 __all__ = [
     "Cliente",
@@ -12,5 +13,6 @@ __all__ = [
     "AlquilerEquipo",
     "AsesoriaEspecializada",
     "Reserva",
+    "SistemaReservas",
 ]
 

@@ -17,8 +17,9 @@ class AlquilerEquipo(Servicio):
             raise DatoInvalidoError("El tipo de equipo es obligatorio.")
 
     def calcular_costo(self, duracion: float, descuento: float = 0) -> float:
-        subtotal = self._costo_base * float(duracion)
-        return subtotal * (1 - float(descuento))
+        duracion, descuento = self.validar_calculo(duracion, descuento)
+        subtotal = self._costo_base * duracion
+        return subtotal * (1 - descuento)
 
     def describir(self) -> str:
         return f"Alquiler de equipo: {self._tipo}"
