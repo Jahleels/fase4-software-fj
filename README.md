@@ -45,6 +45,22 @@ fase4-software-fj/
 Para comprobar la estructura inicial:
 
 ```powershell
-python main.py
+py main.py
 ```
+
+La ejecución realiza diez casos válidos e inválidos y guarda los eventos en
+`logs/software_fj.log`. Para ejecutar las pruebas:
+
+```powershell
+py -m unittest discover -s tests -v
+```
+
+## Documentación
+
+- `docs/decisiones_formato.md`: decisiones provisionales y pregunta pendiente.
+- `docs/arquitectura.md`: alcance y organización de las clases.
+- `docs/casos_simulacion.md`: lista de las diez operaciones.
+- `docs/trabajo_colaborativo.md`: propuesta de reparto para el equipo.
+
+Las reglas para ramas, commits y pull requests están en `CONTRIBUTING.md`.
 

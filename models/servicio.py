@@ -4,6 +4,7 @@ from abc import abstractmethod
 
 from exceptions import DatoInvalidoError
 from models.entidad import Entidad
+from utils.validaciones import convertir_numero_positivo, validar_descuento
 
 
 class Servicio(Entidad):
@@ -18,13 +19,22 @@ class Servicio(Entidad):
     ) -> None:
         super().__init__(identificador)
         self._nombre = nombre.strip()
-        self._costo_base = float(costo_base)
-        self._disponible = disponible
+        self._costo_base = convertir_numero_positivo(costo_base, "El costo base")
+        self._disponible = bool(disponible)
         self.validar()
 
     @property
     def disponible(self) -> bool:
         return self._disponible
+
+    @property
+    def costo_base(self) -> float:
+        return self._costo_base
+
+    def cambiar_disponibilidad(self, disponible: bool) -> None:
+        """Permite habilitar o deshabilitar un servicio."""
+
+        self._disponible = bool(disponible)
 
     def validar(self) -> None:
         super().validar()
@@ -32,6 +42,13 @@ class Servicio(Entidad):
             raise DatoInvalidoError("El nombre del servicio es obligatorio.")
         if self._costo_base <= 0:
             raise DatoInvalidoError("El costo base debe ser mayor que cero.")
+
+    def validar_calculo(self, duracion, descuento=0) -> tuple[float, float]:
+        """Valida los parámetros compartidos por los cálculos de costo."""
+
+        duracion_valida = convertir_numero_positivo(duracion, "La duración")
+        descuento_valido = validar_descuento(descuento)
+        return duracion_valida, descuento_valido
 
     @abstractmethod
     def calcular_costo(self, duracion: float, descuento: float = 0) -> float:

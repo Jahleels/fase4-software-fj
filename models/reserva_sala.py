@@ -8,7 +8,10 @@ class ReservaSala(Servicio):
     """Representa una sala que puede reservarse por horas."""
 
     def __init__(self, identificador: str, costo_base: float, capacidad: int) -> None:
-        self._capacidad = int(capacidad)
+        try:
+            self._capacidad = int(capacidad)
+        except (TypeError, ValueError) as error_original:
+            raise DatoInvalidoError("La capacidad debe ser un número entero.") from error_original
         super().__init__(identificador, "Reserva de sala", costo_base)
 
     def validar(self) -> None:
@@ -17,8 +20,9 @@ class ReservaSala(Servicio):
             raise DatoInvalidoError("La capacidad debe ser mayor que cero.")
 
     def calcular_costo(self, duracion: float, descuento: float = 0) -> float:
-        subtotal = self._costo_base * float(duracion)
-        return subtotal * (1 - float(descuento))
+        duracion, descuento = self.validar_calculo(duracion, descuento)
+        subtotal = self._costo_base * duracion
+        return subtotal * (1 - descuento)
 
     def describir(self) -> str:
         return f"Sala para {self._capacidad} personas"
